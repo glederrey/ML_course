@@ -13,4 +13,8 @@ def compute_loss(y, tx, w):
     # INSERT YOUR CODE HERE
     # TODO: compute loss by MSE / MAE
     # ***************************************************
-    raise NotImplementedError
+    e = y - np.dot(tx, w)
+    N = len(y)
+    
+    L = 1/(2*N)*np.dot(np.transpose(e),e)
+    return L 
