@@ -5,7 +5,7 @@ Grid Search
 """
 
 import numpy as np
-import costs
+#import costs
 
 
 def generate_w(num_intervals):
@@ -29,29 +29,39 @@ def get_best_parameters(w0, w1, losses):
 
 def grid_search(y, tx, w0, w1):
     """Algorithm for grid search."""
-    losses = np.zeros((len(w0), len(w1)))
+    loss = np.zeros((len(w0), len(w1)))
     # ***************************************************
     # INSERT YOUR CODE HERE
     # TODO: compute loss for each combination of w0 and w1.
     # ***************************************************
+    
     for i in range(len(w0)):
         for j in range(len(w1)):
-            losses[i,j] = compute_loss(y, tx, [w0[i], w1[j]])
+            w = np.array([w0[i], w1[j]])
+            loss[i, j] = compute_cost(y, tx, w)
     
-    return losses
+    return loss
 
-def compute_loss(y, tx, w):
-    """Calculate the loss.
+def compute_cost(y, tx, w):
+    """calculate the cost.
 
-    You can calculate the loss using mse or mae.
+    you can calculate the cost by mse or mae.
     """
     # ***************************************************
     # INSERT YOUR CODE HERE
     # TODO: compute loss by MSE / MAE
     # ***************************************************
-
-    e = y - np.dot(tx, w)
-    N = len(y)
     
-    L = 1/(2*N)*np.dot(np.transpose(e),e)
-    return L
+    # vector e
+    e = compute_e(y, tx, w)
+    N = compute_N(e)
+    L_MSE = np.dot(np.matrix.transpose(e), e)
+    L_MSE = L_MSE / (2 * N)
+    
+    return L_MSE
+
+def compute_e(y, tx, w):
+    return (y - np.dot(tx,w))
+
+def compute_N(e):
+    return e.shape[0]
