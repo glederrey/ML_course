@@ -1,11 +1,7 @@
 # -*- coding: utf-8 -*-
 """a function of ploting figures."""
 import numpy as np
-<<<<<<< HEAD
-#from build_polynomial import *
-=======
 from build_polynomial import build_poly
->>>>>>> upstream/master
 
 
 def plot_fitted_curve(y, x, weights, degree, ax):
