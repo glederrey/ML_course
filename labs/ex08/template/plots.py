@@ -32,7 +32,7 @@ def plot_cluster(data, mu, colors, ax):
     ax.set_ylabel("y")
 
 
-def plot(data, mu, mu_old, out_dir):
+def plot(data, mu, mu_old, out_dir=None):
     """plot."""
     colors = ['red', 'blue', 'green']
     fig = plt.figure()
@@ -50,7 +50,8 @@ def plot(data, mu, mu_old, out_dir):
     # matplotlib.rc('ytick', labelsize=5)
 
     plt.tight_layout()
-    plt.savefig(out_dir)
+    if out_dir != None:
+        plt.savefig(out_dir)
     plt.show()
     plt.close()
 
@@ -63,7 +64,7 @@ def plot_image_compression(original_image, image, assignments, mu, k):
     ax1.imshow(original_image, cmap='Greys_r')
 
     # visualization
-    image_reconstruct = mu[assignments]
+    image_reconstruct = np.dot(assignments,mu)
     # image_reconstruct = np.squeeze(image_reconstruct, axis=1)
     image_reconstruct = image_reconstruct.astype('uint8').reshape(original_image.shape)
     ax2 = fig.add_subplot(1, 2, 2)
